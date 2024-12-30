@@ -14,6 +14,36 @@ time.sleep(2)
 
 manual = 0
 
+L = 6.5
+L1 = 11.6
+L2 = 10
+M1 = (-L/2, 0)
+M2 = (L/2, 0)
+goal = [0, 10]
+angle_a_prv = 90
+angle_b_prv = 90
+while not manual:
+    goal[0] = int(input("goal[0]: "))
+    goal[1] = int(input("goal[1]: "))
+
+    M1E = ((M1[0]-goal[0])**2 + (M1[1]-goal[1])**2)**0.5
+    M2E = ((M2[0]-goal[0])**2 + (M2[1]-goal[1])**2)**0.5
+    angle_a_next = (np.arccos((L**2 + M1E**2 - M2E**2)/(2*L*M1E)) + np.arccos((L1**2 + M1E**2 - L2**2)/(2*L1*M1E)))*180/np.pi
+    angle_b_next = (np.arccos((L**2 + M2E**2 - M1E**2)/(2*L*M2E)) + np.arccos((L1**2 + M2E**2 - L2**2)/(2*L1*M2E)))*180/np.pi
+    angle_a = angle_a_prv - angle_a_next
+    angle_b = angle_b_prv - angle_b_next
+    dir_a = 1 - sign(angle_a)
+    dir_b = sign(angle_b)
+
+    message = f"a{int(abs(angle_a)/1.8)}A{dir_a}b{int(abs(angle_b)/1.8)}B{dir_b}f"
+    ser.write(message.encode())
+    
+    angle_a_prv = angle_a_next
+    angle_b_prv = angle_b_next
+    time.sleep(0.5)
+
+
+
 while manual:
     angle_a = input("\nangle a: ")
     dir_a = input("dir a: ")
@@ -26,36 +56,3 @@ while manual:
 
     response = ser.read_until(expected='-').decode()
     print("*** Received: ", response)
-
-
-while not manual:
-    goal = (-10, 10)
-
-    L = 6.5
-    L1 = 11.6
-    L2 = 10
-    M1 = (-L/2, 0)
-    M2 = (L/2, 0)
-    M1E = ((M1[0]-goal[0])**2 + (M1[1]-goal[1])**2)**0.5
-    M2E = ((M2[0]-goal[0])**2 + (M2[1]-goal[1])**2)**0.5
-
-    angle_a_prv = 90
-    angle_b_prv = 90
-    angle_a_next = (np.arccos((L**2 + M1E**2 - M2E**2)/(2*L*M1E)) + np.arccos((L1**2 + M1E**2 - L2**2)/(2*L1*M1E)))*180/np.pi
-    angle_b_next = (np.arccos((L**2 + M2E**2 - M1E**2)/(2*L*M2E)) + np.arccos((L1**2 + M2E**2 - L2**2)/(2*L1*M2E)))*180/np.pi
-    angle_a = angle_a_prv - angle_a_next
-    angle_b = angle_b_prv - angle_b_next
-    dir_a = 1 - sign(angle_a)
-    dir_b = sign(angle_b)
-
-    # print("angle A: ", angle_a_next, "\nangle B: ", angle_b_next)
-    message = f"a{int(abs(angle_a)/1.8)}A{dir_a}b{int(abs(angle_b)/1.8)}B{dir_b}f"
-    # print(message)
-    # input("wait")
-    ser.write(message.encode())
-    break
-
-    # response = ser.read_until(expected='-').decode()
-    # print("*** Received: ", response)
-
-    # time.sleep(1)
