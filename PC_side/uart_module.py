@@ -8,51 +8,46 @@ def sign(a):
     return 0
 
 
+class Robot:
+    def __init__(self, port_='COM7'):
+        self.L = 6.5
+        self.L1 = 11.6
+        self.L2 = 10
+        self.M1 = (-self.L/2, 0)
+        self.M2 = (self.L/2, 0)
+        self.goal = [0, 10]
+        self.angle_a_prv = 90
+        self.angle_b_prv = 90
 
-ser = serial.Serial(port='COM7', baudrate=9600, timeout=1)
-time.sleep(2)
+        self.ser = serial.Serial(port=port_, baudrate=9600, timeout=10)
+        time.sleep(2)
+        
 
-manual = 0
+    def go_to_xy(self, x, y, sleep_=2):
+        self.goal[0] = x
+        self.goal[1] = y
 
-L = 6.5
-L1 = 11.6
-L2 = 10
-M1 = (-L/2, 0)
-M2 = (L/2, 0)
-goal = [0, 10]
-angle_a_prv = 90
-angle_b_prv = 90
-while not manual:
-    goal[0] = int(input("goal[0]: "))
-    goal[1] = int(input("goal[1]: "))
+        M1E = ((self.M1[0]-self.goal[0])**2 + (self.M1[1]-self.goal[1])**2)**0.5
+        M2E = ((self.M2[0]-self.goal[0])**2 + (self.M2[1]-self.goal[1])**2)**0.5
+        angle_a_next = (np.arccos((self.L**2 + M1E**2 - M2E**2)/(2*self.L*M1E)) + np.arccos((self.L1**2 + M1E**2 - self.L2**2)/(2*self.L1*M1E)))*180/np.pi
+        angle_b_next = (np.arccos((self.L**2 + M2E**2 - M1E**2)/(2*self.L*M2E)) + np.arccos((self.L1**2 + M2E**2 - self.L2**2)/(2*self.L1*M2E)))*180/np.pi
+        angle_a = self.angle_a_prv - angle_a_next
+        angle_b = self.angle_b_prv - angle_b_next
+        dir_a = 1 - sign(angle_a)
+        dir_b = sign(angle_b)
 
-    M1E = ((M1[0]-goal[0])**2 + (M1[1]-goal[1])**2)**0.5
-    M2E = ((M2[0]-goal[0])**2 + (M2[1]-goal[1])**2)**0.5
-    angle_a_next = (np.arccos((L**2 + M1E**2 - M2E**2)/(2*L*M1E)) + np.arccos((L1**2 + M1E**2 - L2**2)/(2*L1*M1E)))*180/np.pi
-    angle_b_next = (np.arccos((L**2 + M2E**2 - M1E**2)/(2*L*M2E)) + np.arccos((L1**2 + M2E**2 - L2**2)/(2*L1*M2E)))*180/np.pi
-    angle_a = angle_a_prv - angle_a_next
-    angle_b = angle_b_prv - angle_b_next
-    dir_a = 1 - sign(angle_a)
-    dir_b = sign(angle_b)
+        message = f"a{int(abs(angle_a)/1.8)}A{dir_a}b{int(abs(angle_b)/1.8)}B{dir_b}f"
+        self.ser.write(message.encode())
 
-    message = f"a{int(abs(angle_a)/1.8)}A{dir_a}b{int(abs(angle_b)/1.8)}B{dir_b}f"
-    ser.write(message.encode())
-    
-    angle_a_prv = angle_a_next
-    angle_b_prv = angle_b_next
-    time.sleep(0.5)
+        self.angle_a_prv = angle_a_next
+        self.angle_b_prv = angle_b_next
+        time.sleep(sleep_)
 
 
 
-while manual:
-    angle_a = input("\nangle a: ")
-    dir_a = input("dir a: ")
-    angle_b = input("angle b: ")
-    dir_b = input("dir b: ")
 
-    message = f"a{angle_a}A{dir_a}b{angle_b}B{dir_b}f"
-    ser.write(message.encode())
-    time.sleep(0.1)
-
-    response = ser.read_until(expected='-').decode()
-    print("*** Received: ", response)
+if __name__ == "__main__":
+    r = Robot()
+    r.go_to_xy(0, 10, 2)
+    r.go_to_xy(10, 10, 2)
+    r.go_to_xy(-10, 10, 2)
