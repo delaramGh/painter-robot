@@ -49,7 +49,13 @@ int temp = 0;
 size_t str_cnt = 0, mv_cnt = 0;
 uint8_t motors_value[4];
 
-uint8_t mv_ready_flag = 0;
+uint8_t motor_a_angle[100];
+uint8_t motor_b_angle[100];
+uint8_t motor_a_dir[100];
+uint8_t motor_b_dir[100];
+uint32_t write_cnt = 0; 
+uint32_t read_cnt = 0;
+
 
 /* USER CODE END PV */
 
@@ -114,25 +120,28 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		if(mv_ready_flag)
+		if(read_cnt < write_cnt)
 		{			
 			
 				int n = 0;
-				if(motors_value[0] > motors_value[2])
-						n = motors_value[0];
+				if(motor_a_angle[read_cnt] > motor_b_angle[read_cnt])
+						n = motor_a_angle[read_cnt];
 				else
-						n = motors_value[2];
+						n = motor_b_angle[read_cnt];
 				
 				for(int i=0; i<n; i++)
 				{
-						if(motors_value[0] >= i)
-								Stepper_1(1, motors_value[1], 5);
-						if(motors_value[2] >= i)
-								Stepper_2(1, motors_value[3], 5);	
+						if(motor_a_angle[read_cnt] >= i)
+								Stepper_1(1, motor_a_dir[read_cnt], 5);
+						if(motor_b_angle[read_cnt] >= i)
+								Stepper_2(1, motor_b_dir[read_cnt], 5);	
 				}
-				mv_ready_flag = 0;
-		}
-  }
+				if(read_cnt < 100-1)
+					read_cnt++;
+				else read_cnt = 0;
+		}//motors move
+		
+  }//while(1)
 }
 
 
@@ -159,7 +168,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 								mv_cnt++;
 						}
 				}//Rdata finished
-				mv_ready_flag = 1;
+				
+				motor_a_angle[write_cnt] = motors_value[0];
+				motor_a_dir[write_cnt]   = motors_value[1];
+				motor_b_angle[write_cnt] = motors_value[2];
+				motor_b_dir[write_cnt]   = motors_value[3];
+				if(write_cnt < 100-1)
+					write_cnt++;
+				else write_cnt = 0;
+				
 				for(int i=0; i<15; i++) //clear Rdata
 						Rdata[i] = 0;
 			}//if data ready

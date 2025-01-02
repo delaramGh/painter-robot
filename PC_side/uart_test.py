@@ -20,8 +20,9 @@ L2 = 10
 M1 = (-L/2, 0)
 M2 = (L/2, 0)
 goal = [0, 10]
-angle_a_prv = 90
-angle_b_prv = 90
+angle_a_prv = 118.43  #for (0, 15)
+angle_b_prv = 118.43  #for (0, 15)
+
 while not manual:
     goal[0] = float(input("goal[0]: "))
     goal[1] = float(input("goal[1]: "))

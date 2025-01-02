@@ -12,12 +12,12 @@ class Robot:
     def __init__(self, port_='COM7'):
         self.L = 6.5
         self.L1 = 11.6
-        self.L2 = 10
+        self.L2 = 10+0.6
         self.M1 = (-self.L/2, 0)
         self.M2 = (self.L/2, 0)
-        self.goal = [0, 10]
-        self.angle_a_prv = 90
-        self.angle_b_prv = 90
+        self.goal = [0, 15]
+        self.angle_a_prv = 118.43  #for (0, 15)
+        self.angle_b_prv = 118.43  #for (0, 15)
 
         self.ser = serial.Serial(port=port_, baudrate=9600, timeout=10)
         time.sleep(2)
@@ -48,6 +48,8 @@ class Robot:
 
 if __name__ == "__main__":
     r = Robot()
-    r.go_to_xy(0, 10, 2)
-    r.go_to_xy(10, 10, 2)
-    r.go_to_xy(-10, 10, 2)
+    X = np.linspace(-10, 10, 20)
+    Y = 15 * np.ones((20,))
+    r.go_to_xy(X[0], Y[0], 3)
+    for i in range(1, 20):
+        r.go_to_xy(X[i], Y[i], 0.01)
