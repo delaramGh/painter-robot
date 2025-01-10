@@ -3,7 +3,7 @@
 <title>Static Call Graph - [motor_control\motor_control.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image motor_control\motor_control.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Jan 09 20:03:39 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Jan 10 15:18:56 2025
 <BR><P>
 <H3>Maximum Stack Usage =        136 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -324,8 +324,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[43]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_2
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_1
+<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_b
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_a
 </UL>
 
 <P><STRONG><a name="[59]"></a>HAL_GPIO_Init</STRONG> (Thumb, 446 bytes, Stack size 40 bytes, stm32f1xx_hal_gpio.o(i.HAL_GPIO_Init))
@@ -337,8 +337,8 @@ Global Symbols
 
 <P><STRONG><a name="[61]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin))
 <BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_2
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_1
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_b
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_a
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 
@@ -524,8 +524,8 @@ Global Symbols
 <P><STRONG><a name="[6]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[62]"></a>Stepper_1</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, main.o(i.Stepper_1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Stepper_1 &rArr; HAL_Delay
+<P><STRONG><a name="[62]"></a>Stepper_a</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, main.o(i.Stepper_a))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Stepper_a &rArr; HAL_Delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -533,8 +533,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[63]"></a>Stepper_2</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, main.o(i.Stepper_2))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Stepper_2 &rArr; HAL_Delay
+<P><STRONG><a name="[63]"></a>Stepper_b</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, main.o(i.Stepper_b))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Stepper_b &rArr; HAL_Delay
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -592,8 +592,8 @@ Global Symbols
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_2
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_1
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_b
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Stepper_a
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)

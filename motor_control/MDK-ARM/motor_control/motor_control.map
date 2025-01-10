@@ -27,10 +27,10 @@ Section Cross References
     main.o(i.HAL_UART_RxCpltCallback) refers to main.o(.bss) for .bss
     main.o(i.MX_GPIO_Init) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
     main.o(i.MX_GPIO_Init) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
-    main.o(i.Stepper_1) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
-    main.o(i.Stepper_1) refers to stm32f1xx_hal.o(i.HAL_Delay) for HAL_Delay
-    main.o(i.Stepper_2) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
-    main.o(i.Stepper_2) refers to stm32f1xx_hal.o(i.HAL_Delay) for HAL_Delay
+    main.o(i.Stepper_a) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    main.o(i.Stepper_a) refers to stm32f1xx_hal.o(i.HAL_Delay) for HAL_Delay
+    main.o(i.Stepper_b) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
+    main.o(i.Stepper_b) refers to stm32f1xx_hal.o(i.HAL_Delay) for HAL_Delay
     main.o(i.SystemClock_Config) refers to memseta.o(.text) for __aeabi_memclr4
     main.o(i.SystemClock_Config) refers to stm32f1xx_hal_rcc.o(i.HAL_RCC_OscConfig) for HAL_RCC_OscConfig
     main.o(i.SystemClock_Config) refers to stm32f1xx_hal_rcc.o(i.HAL_RCC_ClockConfig) for HAL_RCC_ClockConfig
@@ -40,8 +40,8 @@ Section Cross References
     main.o(i.main) refers to stm32f1xx_hal_uart.o(i.HAL_UART_Init) for HAL_UART_Init
     main.o(i.main) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
     main.o(i.main) refers to stm32f1xx_hal_uart.o(i.HAL_UART_Receive_IT) for HAL_UART_Receive_IT
-    main.o(i.main) refers to main.o(i.Stepper_1) for Stepper_1
-    main.o(i.main) refers to main.o(i.Stepper_2) for Stepper_2
+    main.o(i.main) refers to main.o(i.Stepper_a) for Stepper_a
+    main.o(i.main) refers to main.o(i.Stepper_b) for Stepper_b
     main.o(i.main) refers to main.o(.bss) for .bss
     main.o(i.main) refers to main.o(.data) for .data
     stm32f1xx_it.o(i.SysTick_Handler) refers to stm32f1xx_hal.o(i.HAL_IncTick) for HAL_IncTick
@@ -591,8 +591,8 @@ Image Symbol Table
     i.NMI_Handler                            0x08000fc6   Section        0  stm32f1xx_it.o(i.NMI_Handler)
     i.PendSV_Handler                         0x08000fc8   Section        0  stm32f1xx_it.o(i.PendSV_Handler)
     i.SVC_Handler                            0x08000fca   Section        0  stm32f1xx_it.o(i.SVC_Handler)
-    i.Stepper_1                              0x08000fcc   Section        0  main.o(i.Stepper_1)
-    i.Stepper_2                              0x08001014   Section        0  main.o(i.Stepper_2)
+    i.Stepper_a                              0x08000fcc   Section        0  main.o(i.Stepper_a)
+    i.Stepper_b                              0x08001014   Section        0  main.o(i.Stepper_b)
     i.SysTick_Handler                        0x0800105c   Section        0  stm32f1xx_it.o(i.SysTick_Handler)
     i.SystemClock_Config                     0x08001060   Section        0  main.o(i.SystemClock_Config)
     i.SystemInit                             0x080010ae   Section        0  system_stm32f1xx.o(i.SystemInit)
@@ -736,8 +736,8 @@ Image Symbol Table
     NMI_Handler                              0x08000fc7   Thumb Code     2  stm32f1xx_it.o(i.NMI_Handler)
     PendSV_Handler                           0x08000fc9   Thumb Code     2  stm32f1xx_it.o(i.PendSV_Handler)
     SVC_Handler                              0x08000fcb   Thumb Code     2  stm32f1xx_it.o(i.SVC_Handler)
-    Stepper_1                                0x08000fcd   Thumb Code    66  main.o(i.Stepper_1)
-    Stepper_2                                0x08001015   Thumb Code    66  main.o(i.Stepper_2)
+    Stepper_a                                0x08000fcd   Thumb Code    66  main.o(i.Stepper_a)
+    Stepper_b                                0x08001015   Thumb Code    66  main.o(i.Stepper_b)
     SysTick_Handler                          0x0800105d   Thumb Code     4  stm32f1xx_it.o(i.SysTick_Handler)
     SystemClock_Config                       0x08001061   Thumb Code    78  main.o(i.SystemClock_Config)
     SystemInit                               0x080010af   Thumb Code     2  system_stm32f1xx.o(i.SystemInit)
@@ -843,8 +843,8 @@ Memory Map of the image
     0x08000fc6   0x08000fc6   0x00000002   Code   RO          163    i.NMI_Handler       stm32f1xx_it.o
     0x08000fc8   0x08000fc8   0x00000002   Code   RO          164    i.PendSV_Handler    stm32f1xx_it.o
     0x08000fca   0x08000fca   0x00000002   Code   RO          165    i.SVC_Handler       stm32f1xx_it.o
-    0x08000fcc   0x08000fcc   0x00000048   Code   RO           16    i.Stepper_1         main.o
-    0x08001014   0x08001014   0x00000048   Code   RO           17    i.Stepper_2         main.o
+    0x08000fcc   0x08000fcc   0x00000048   Code   RO           16    i.Stepper_a         main.o
+    0x08001014   0x08001014   0x00000048   Code   RO           17    i.Stepper_b         main.o
     0x0800105c   0x0800105c   0x00000004   Code   RO          166    i.SysTick_Handler   stm32f1xx_it.o
     0x08001060   0x08001060   0x0000004e   Code   RO           18    i.SystemClock_Config  main.o
     0x080010ae   0x080010ae   0x00000002   Code   RO         1682    i.SystemInit        system_stm32f1xx.o

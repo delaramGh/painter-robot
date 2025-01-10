@@ -65,8 +65,8 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
-void Stepper_1(int n, GPIO_PinState PinState, int delay);
-void Stepper_2(int n, GPIO_PinState PinState, int delay);
+void Stepper_a(int n, GPIO_PinState PinState, int delay);
+void Stepper_b(int n, GPIO_PinState PinState, int delay);
 
 /* USER CODE END PFP */
 
@@ -120,6 +120,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		
+		
+		
 		if(read_cnt < write_cnt)
 		{			
 			
@@ -132,9 +135,9 @@ int main(void)
 				for(int i=0; i<n; i++)
 				{
 						if(motor_a_angle[read_cnt] >= i)
-								Stepper_1(1, motor_a_dir[read_cnt], 5);
+								Stepper_a(1, motor_a_dir[read_cnt], 5);
 						if(motor_b_angle[read_cnt] >= i)
-								Stepper_2(1, motor_b_dir[read_cnt], 5);	
+								Stepper_b(1, motor_b_dir[read_cnt], 5);	
 				}
 				if(read_cnt < 100-1)
 					read_cnt++;
@@ -186,7 +189,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 }
 
 
-void Stepper_1(int n, GPIO_PinState PinState, int delay)
+void Stepper_a(int n, GPIO_PinState PinState, int delay)
 {
 		//Direction
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, PinState);
@@ -201,7 +204,7 @@ void Stepper_1(int n, GPIO_PinState PinState, int delay)
 		}
 }
 
-void Stepper_2(int n, GPIO_PinState PinState, int delay)
+void Stepper_b(int n, GPIO_PinState PinState, int delay)
 {
 		//Direction
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, PinState);
