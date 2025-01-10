@@ -11,13 +11,13 @@ def sign(a):
 class Robot:
     def __init__(self, port_='COM7'):
         self.L = 6.5
-        self.L1 = 11.6
-        self.L2 = 10+0.6
+        self.L1 = 11.3
+        self.L2 = 8.5
         self.M1 = (-self.L/2, 0)
         self.M2 = (self.L/2, 0)
         self.goal = [0, 15]
-        self.angle_a_prv = 118.43  #for (0, 15)
-        self.angle_b_prv = 118.43  #for (0, 15)
+        self.angle_a_prv = 110.74  #for (0, 15)
+        self.angle_b_prv = 110.74  #for (0, 15)
 
         self.ser = serial.Serial(port=port_, baudrate=9600, timeout=10)
         time.sleep(2)
@@ -36,7 +36,10 @@ class Robot:
         dir_a = 1 - sign(angle_a)
         dir_b = sign(angle_b)
 
+        print(abs(angle_a)/1.8)
+        print(abs(angle_b)/1.8)
         message = f"a{int(abs(angle_a)/1.8)}A{dir_a}b{int(abs(angle_b)/1.8)}B{dir_b}f"
+        print(message, "\n")
         self.ser.write(message.encode())
 
         self.angle_a_prv = angle_a_next
@@ -48,8 +51,8 @@ class Robot:
 
 if __name__ == "__main__":
     r = Robot()
-    X = np.linspace(-10, 10, 20)
-    Y = 15 * np.ones((20,))
-    r.go_to_xy(X[0], Y[0], 3)
-    for i in range(1, 20):
-        r.go_to_xy(X[i], Y[i], 0.01)
+    n = 40
+    X = np.linspace(-10, 10, n)
+    Y = 10 * np.ones((n,))
+    for i in range(n):
+        r.go_to_xy(X[i], Y[i], 0.1)
