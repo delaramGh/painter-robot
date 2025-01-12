@@ -136,6 +136,7 @@ int main(void)
 				{
 						if(motor_a_angle[read_cnt] >= i)
 								Stepper_a(1, motor_a_dir[read_cnt], 5);
+						HAL_Delay(2);
 						if(motor_b_angle[read_cnt] >= i)
 								Stepper_b(1, motor_b_dir[read_cnt], 5);	
 				}
