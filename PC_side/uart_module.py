@@ -11,9 +11,9 @@ class Robot:
         self.L2 = 8.5
         self.M1 = (-self.L/2, 0)
         self.M2 = (self.L/2, 0)
-        self.goal = [0, 15.4]
-        self.angle_a_prv = 109.62  #for (0, 15.4)
-        self.angle_b_prv = 109.62  #for (0, 15.4)
+        self.goal = [0, 15.8]
+        self.angle_a_prv = 108.4  #for (0, 15.4)
+        self.angle_b_prv = 108.4  #for (0, 15.4)
         self.debug = debug
         if not self.debug:
             self.ser = serial.Serial(port=port_, baudrate=9600, timeout=10)
@@ -91,7 +91,7 @@ class Robot:
 if __name__ == "__main__":
     r = Robot(debug=0)
     
-    n = 40
+    n = 20
     X = np.linspace(-10, 10, n)
     Y = 10 * np.ones((n,))
     for i in range(n):

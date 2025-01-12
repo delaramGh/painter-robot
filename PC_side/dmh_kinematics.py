@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     A = np.array([-L/2, 0])
     B = np.array([L/2, 0])
-    E = np.array([0, 15.4])
+    E = np.array([0, 15.8])
     # E = np.array([-L/2, 15])
     # E = np.array([-10, 10])
 

@@ -119,10 +119,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-		
-		
-		
+    /* USER CODE BEGIN 3 */		
 		if(read_cnt < write_cnt)
 		{			
 			
